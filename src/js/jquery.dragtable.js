@@ -56,8 +56,7 @@
  * if(!p.width() || (jQuery.browser.msie && jQuery.browser.version.match('^7|^6'))) { p.width(self.currentItem.innerWidth() - parseInt(self.currentItem.css('paddingLeft')||0, 10) - parseInt(self.currentItem.css('paddingRight')||0, 10)); };
  */
 
-/* TODO: support colgroups
- */
+/* TODO: support colgroups */
 
 (function($) {
   $.fn.dragtable = function(options) {
