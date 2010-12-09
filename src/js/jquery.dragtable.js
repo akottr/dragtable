@@ -1,8 +1,6 @@
 /*!
  * dragtable
  *
- * @Version 1.0.2
- *
  * Copyright (c) 2010, Andres Koetter akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
@@ -56,7 +54,8 @@
  * if(!p.width() || (jQuery.browser.msie && jQuery.browser.version.match('^7|^6'))) { p.width(self.currentItem.innerWidth() - parseInt(self.currentItem.css('paddingLeft')||0, 10) - parseInt(self.currentItem.css('paddingRight')||0, 10)); };
  */
 
-/* TODO: support colgroups */
+/* TODO: support colgroups
+ */
 
 (function($) {
   $.fn.dragtable = function(options) {
@@ -178,7 +177,9 @@
         var attrs = _D.originalTable.el[0].attributes;
         var attrsString = '';
         for(var i=0; i < attrs.length;i++) {
-            attrsString += attrs[i].nodeName + '="' + attrs[i].nodeValue+'"';
+		  if(attrs[i].nodeValue) {
+		    attrsString += attrs[i].nodeName + '="' + attrs[i].nodeValue+'" ';
+		  }
         }
 
         // row attributes
@@ -190,9 +191,11 @@
           var attrs = this.attributes;
           var attrsString = "";
           for(var j=0; j < attrs.length;j++) {
-            attrsString += " " + attrs[j].nodeName + '="' + attrs[j].nodeValue+'"';
-            rowAttrsArr.push(attrsString);
+            if(attrs[j].nodeValue) {
+              attrsString += " " + attrs[j].nodeName + '="' + attrs[j].nodeValue+'"';
+			}
           }
+          rowAttrsArr.push(attrsString);
           /* the not so easy way */
           if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
             _D.originalTable.el.find('tr').slice(0,opts.maxMovingRows).each(function(i,v) {
@@ -234,7 +237,7 @@
           row.each(function(j) {
             /* the not so easy way (part 2)*/
             if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
-              sortableHtml += '<tr '+ rowAttrsArr[j] + '">';
+              sortableHtml += '<tr '+ rowAttrsArr[j] + '>';
               // TODO: May cause duplicate style-Attribute
               sortableHtml += $(this).clone().wrap('<div></div>').parent().html().replace('<TD','<TD style="height:'+heightArr[j]+'px;"');
             }
