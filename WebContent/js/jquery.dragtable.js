@@ -198,7 +198,7 @@
         rowAttrsArr.push(attrsString);
         /* the not so easy way */
         if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
-          this.originalTable.el.find('tr').slice(0,this.options.maxMovingRows).each(function(i,v) {
+        	this.originalTable.el.find('tr').slice(0,this.options.maxMovingRows).each(function(i,v) {
             var maxCellHeight = null;
             $(this).children().each(function() {
               /* I think here is a bug. I have to take in account the padding-top and padding-bottom
