@@ -278,7 +278,7 @@
                                      })
                            .disableSelection();
 
-        // assign start index
+      // assign start index
       this.originalTable.startIndex = $(e.target).closest('th').prevAll().size() + 1;
 
       this.options.beforeMoving(this.originalTable, this.sortableTable);
@@ -311,20 +311,20 @@
         this._generateSortable(evt);
       };
     },
-	  
+	_bindTo:null,  
     _create: function(){	
       this.originalTable.el = $(this.element);
       // bind draggable to 'th' by default
-      var bindTo = this.originalTable.el.find('th');
+      this._bindTo = this.originalTable.el.find('th');
       // filter only the cols that are accepted
-      if(this.options.dragaccept) { bindTo = bindTo.filter(this.options.dragaccept); }
+      if(this.options.dragaccept) { this._bindTo = this._bindTo.filter(this.options.dragaccept); }
       // bind draggable to handle if exists
-      if(bindTo.find(this.options.dragHandle).size() > 0) { bindTo = bindTo.find(this.options.dragHandle);}
+      if(this._bindTo.find(this.options.dragHandle).size() > 0) { this._bindTo = this._bindTo.find(this.options.dragHandle);}
       // restore state if necessary
       if(this.options.restoreState !== null) { 
         $.isFunction(this.options.restoreState) ? this.options.restoreState(this.originalTable) : this._restoreState(this.options.restoreState);
       }
-      bindTo.bind('mousedown',{_table: this}, function(evt) {
+      this._bindTo.bind('mousedown',{_table: this}, function(evt) {
     	var _table = evt.data._table;
     	_table.originalTable.el = _table.element;
     	_table.originalTable.selectedHandle = $(this);
