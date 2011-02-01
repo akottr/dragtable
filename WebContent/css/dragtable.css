@@ -1,0 +1,153 @@
+/*##### the main stuff #####*/
+body {
+    font-size: 12px;
+    padding: 7px;
+    line-height: 1.333em;
+}
+
+body,td,th,input {
+    font-family: verdana, sans-serif;
+}
+
+input {
+    border:1px solid #A6A7B0;
+}
+
+h1#akottr-header, #pageWrap {
+    width:1000px;
+    padding:15px 8px;
+    border-right: 1px solid #A6A7B0;
+    border-left: 1px solid #A6A7B0;
+}
+
+#pageWrap {
+    border-bottom: 1px solid #A6A7B0;
+}
+
+
+h1#akottr-header {
+    border-top: 1px solid #A6A7B0;
+    height: 70px;
+    margin: 0;
+    background-color: #EEEEEE;
+    background-image: url(../img/akottr.png);
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+}
+
+h4 {
+ padding-bottom: 3px;
+}
+
+.intro {
+    padding: 8px 0;
+}
+
+.sample {
+    padding: 0 0 20px 0;
+}
+
+.sample .demo .demo-content {
+    padding: 3px 2px 3px 2px;
+    margin:5px 0;
+    border: 1px solid #E2E1D5;
+}
+
+.code-snippet pre {
+    padding: 3px 2px 3px 2px;
+    margin:5px 0;
+    background-color: #FBF9EA;
+    border: 1px solid #E2E1D5;
+}
+
+.sample .description {
+    padding: 5px 0 5px 0;    
+}
+
+/*##### the table stuff #####*/
+table {
+    font-size: 10px;
+    border-collapse:collapse;
+    font-family:Tahoma,Helvetica,Arial,sans-serif;
+}
+td, th {
+    text-align:left;
+    vertical-align:top;
+}
+
+tr{
+    marging:0;
+    padding:0;
+}
+
+table td, table th {
+    border:1px solid #CCC;
+    font-size:0.9em;
+    padding:3px;
+}
+
+table.sar-table th {
+    background:none repeat scroll 0 0 #FBF9EA;
+    color:#000;
+    font-weight:normal;
+    height:20px;
+    width:100px;
+    cursor:move;
+}
+
+#handlerTable th {
+    cursor:default;
+}
+
+.some-handle {
+    cursor:move;
+}
+
+#constrainTable th {
+    cursor:default;
+}
+
+#constrainTable th.accept {
+    cursor:move;
+}
+
+.some-handle {
+    background-image:url("../img/handle.png");
+    background-repeat:repeat-x;
+    height:18px;
+    margin:0 1px;
+}
+
+
+/*##### the dragtable stuff #####*/
+.dragtable-sortable { 
+    list-style-type: none; margin: 0; padding: 0; 
+}
+.dragtable-sortable li {
+    margin: 0; padding: 0; float: left; font-size: 1em; background: white; 
+}
+
+.dragtable-sortable th, .dragtable-sortable td{
+    border-left: 0px;
+}
+
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {
+    border-left: 1px solid #CCC; 
+}
+
+.ui-sortable-helper {
+    opacity: 0.7;filter: alpha(opacity=70);
+}
+.ui-sortable-placeholder { 
+    -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;
+    -webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;
+    box-shadow: 4px 5px 4px #C6C6C6 inset;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    visibility: visible !important;
+    background: #EFEFEF !important; 
+    visibility: visible !important;
+}
+.ui-sortable-placeholder * { 
+    opacity: 0.0; visibility: hidden; 
+}

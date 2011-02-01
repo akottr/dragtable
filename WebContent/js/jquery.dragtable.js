@@ -1,7 +1,7 @@
 /*!
  * dragtable
  *
- * @Version 1.0.3
+ * @Version 2.0.0
  *
  * Copyright (c) 2010, Andres Koetter akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -312,13 +312,10 @@
       };
     },
 	  
-    _init: function(){	
+    _create: function(){	
       this.originalTable.el = $(this.element);
       // bind draggable to 'th' by default
       var bindTo = this.originalTable.el.find('th');
-	  console.log(this.originalTable.el);
-      console.log(this.originalTable.el.find('th'));
-	  
       // filter only the cols that are accepted
       if(this.options.dragaccept) { bindTo = bindTo.filter(this.options.dragaccept); }
       // bind draggable to handle if exists
@@ -327,16 +324,21 @@
       if(this.options.restoreState !== null) { 
         $.isFunction(this.options.restoreState) ? this.options.restoreState(this.originalTable) : this._restoreState(this.options.restoreState);
       }
-      var _this = this;
-      bindTo.bind('mousedown',function(evt) {
-        _this.originalTable.selectedHandle = $(this);
-        _this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
-        _this.options.beforeStart(this.originalTable);
+      bindTo.bind('mousedown',{_table: this}, function(evt) {
+    	var _table = evt.data._table;
+    	_table.originalTable.el = _table.element;
+    	_table.originalTable.selectedHandle = $(this);
+    	_table.originalTable.selectedHandle.addClass('dragtable-handle-selected');
+    	_table.options.beforeStart(this.originalTable);
         // take a breath and rerender before creating sortable table
         // setTimeout(this._delayedStart(evt),10);
         // for immediate start (no delay)
-        _this._generateSortable(evt);
+    	_table._generateSortable(evt);
       });	
-    }
-  })
+    },
+    destroy: function() {
+        $.Widget.prototype.destroy.apply(this, arguments); // default destroy
+         // now do other stuff particular to this widget
+    }    
+  });
 })(jQuery);
