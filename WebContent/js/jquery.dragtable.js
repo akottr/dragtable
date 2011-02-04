@@ -93,7 +93,7 @@
       aparent.insertBefore(b, asibling);
     },
     persistState: function() {
-	  var _this = this;
+      var _this = this;
       this.originalTable.el.find('th').each(function(i) {
           if(this.id != '') {_this.originalTable.sortOrder[this.id]=i;}
         });
@@ -141,7 +141,7 @@
       }
     },
     _rearrangeTableBackroundProcessing: function() {
-	  var _this = this;
+      var _this = this;
       return function() {
         _this._bubbleCols();
         _this.options.beforeStop(this.originalTable);
@@ -152,9 +152,9 @@
         }
       };
     },
-	_rearrangeTable: function() {
-	  var _this = this;
-	  return function() {
+    _rearrangeTable: function() {
+      var _this = this;
+      return function() {
       // remove handler-class -> handler is now finished
       _this.originalTable.selectedHandle.removeClass('dragtable-handle-selected');
       // add disabled class -> reorgorganisation starts soon
@@ -164,9 +164,9 @@
       // do reorganisation asynchronous
       // for chrome a little bit more than 1 ms because we want to force a rerender
       _this.originalTable.endIndex = _this.sortableTable.movingRow.prevAll().size() + 1;
-      setTimeout(_this._rearrangeTableBackroundProcessing(),50);	  
-	  }
-	},
+      setTimeout(_this._rearrangeTableBackroundProcessing(),50);      
+      }
+    },
     /*
      * Disrupts the table. The original table stays the same.
      * But on a layer above the original table we are constructing a list (ul > li)
@@ -178,9 +178,9 @@
       var attrs = this.originalTable.el[0].attributes;
       var attrsString = '';
       for(var i=0; i < attrs.length;i++) {
-		if(attrs[i].nodeValue) {
-		  attrsString += attrs[i].nodeName + '="' + attrs[i].nodeValue+'" ';
-		}
+        if(attrs[i].nodeValue) {
+          attrsString += attrs[i].nodeName + '="' + attrs[i].nodeValue+'" ';
+        }
       }
 
       // row attributes
@@ -199,24 +199,20 @@
         rowAttrsArr.push(attrsString);
         /* the not so easy way */
         if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
-        	_this.originalTable.el.find('tr').slice(0,_this.options.maxMovingRows).each(function(i,v) {
-            var maxCellHeight = null;
-            $(this).children().each(function() {
-              /* I think here is a bug. I have to take in account the padding-top and padding-bottom
-               * TODO: substract $(this).height().css('padding-top') and $(this).height().css('padding-bottom');
-               * deeper investiagtion needed
-               */
-              var tmp = $(this).height();
-              if(maxCellHeight == null || tmp > maxCellHeight) {maxCellHeight = tmp;}
-            });
-            heightArr.push(maxCellHeight);
+          var maxCellHeight = null;
+          $(this).children().each(function() {
+            /* I think here is a bug. I have to take in account the padding-top and padding-bottom
+             * TODO: substract $(this).height().css('padding-top') and $(this).height().css('padding-bottom');
+             * deeper investiagtion needed
+             */
+            var tmp = $(this).height();    
+            if(maxCellHeight == null || tmp > maxCellHeight) {maxCellHeight = tmp;}
           });
+          heightArr.push(maxCellHeight);
         }
         /* the easy way, but does not work very good in IE < 8 */
         else {
-          _this.originalTable.el.find('tr').slice(0,_this.options.maxMovingRows).each(function(i,v) {
-            heightArr.push($(this).height()); // BUG HERE
-          });
+          heightArr.push($(this).height()); 
         }
       });
 
@@ -312,7 +308,7 @@
         this._generateSortable(evt);
       };
     },
-    _create: function(){	
+    _create: function(){    
       this.originalTable = {
          el:this.element
         ,selectedHandle:$()
@@ -330,16 +326,16 @@
       if(this.options.restoreState !== null) { 
         $.isFunction(this.options.restoreState) ? this.options.restoreState(this.originalTable) : this._restoreState(this.options.restoreState);
       }
-	  var _this = this;
+      var _this = this;
       bindTo.bind('mousedown',function(evt) {
-    	_this.originalTable.selectedHandle = $(this);
-    	_this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
-    	_this.options.beforeStart(this.originalTable);
+        _this.originalTable.selectedHandle = $(this);
+        _this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
+        _this.options.beforeStart(this.originalTable);
         // take a breath and rerender before creating sortable table
         // setTimeout(this._delayedStart(evt),10);
         // for immediate start (no delay)
-    	_this._generateSortable(evt);
-      });	
+        _this._generateSortable(evt);
+      });
     },
     destroy: function() {
         $.Widget.prototype.destroy.apply(this, arguments); // default destroy
