@@ -75,9 +75,9 @@
       ,beforeStop:$.noop 
     },
     originalTable:{
-       el:$()
-      ,selectedHandle:$()
-      ,sortOrder:{}
+       el:null
+      ,selectedHandle:null
+      ,sortOrder:null
       ,startIndex:0
       ,endIndex:0
     },
@@ -93,8 +93,9 @@
       aparent.insertBefore(b, asibling);
     },
     persistState: function() {
+	  var _this = this;
       this.originalTable.el.find('th').each(function(i) {
-          if(this.id != '') {this.originalTable.sortOrder[this.id]=i;}
+          if(this.id != '') {_this.originalTable.sortOrder[this.id]=i;}
         });
         $.ajax({url: this.options.persistState,
                 data: this.originalTable.sortOrder});
@@ -198,7 +199,7 @@
         rowAttrsArr.push(attrsString);
         /* the not so easy way */
         if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
-        	this.originalTable.el.find('tr').slice(0,this.options.maxMovingRows).each(function(i,v) {
+        	_this.originalTable.el.find('tr').slice(0,_this.options.maxMovingRows).each(function(i,v) {
             var maxCellHeight = null;
             $(this).children().each(function() {
               /* I think here is a bug. I have to take in account the padding-top and padding-bottom
@@ -311,29 +312,33 @@
         this._generateSortable(evt);
       };
     },
-	_bindTo:null,  
     _create: function(){	
-      this.originalTable.el = $(this.element);
+      this.originalTable = {
+         el:this.element
+        ,selectedHandle:$()
+        ,sortOrder:{}
+        ,startIndex:0
+        ,endIndex:0
+      };
       // bind draggable to 'th' by default
-      this._bindTo = this.originalTable.el.find('th');
+      var bindTo = this.originalTable.el.find('th');
       // filter only the cols that are accepted
-      if(this.options.dragaccept) { this._bindTo = this._bindTo.filter(this.options.dragaccept); }
+      if(this.options.dragaccept) { bindTo = bindTo.filter(this.options.dragaccept); }
       // bind draggable to handle if exists
-      if(this._bindTo.find(this.options.dragHandle).size() > 0) { this._bindTo = this._bindTo.find(this.options.dragHandle);}
+      if(bindTo.find(this.options.dragHandle).size() > 0) { bindTo = bindTo.find(this.options.dragHandle);}
       // restore state if necessary
       if(this.options.restoreState !== null) { 
         $.isFunction(this.options.restoreState) ? this.options.restoreState(this.originalTable) : this._restoreState(this.options.restoreState);
       }
-      this._bindTo.bind('mousedown',{_table: this}, function(evt) {
-    	var _table = evt.data._table;
-    	_table.originalTable.el = _table.element;
-    	_table.originalTable.selectedHandle = $(this);
-    	_table.originalTable.selectedHandle.addClass('dragtable-handle-selected');
-    	_table.options.beforeStart(this.originalTable);
+	  var _this = this;
+      bindTo.bind('mousedown',function(evt) {
+    	_this.originalTable.selectedHandle = $(this);
+    	_this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
+    	_this.options.beforeStart(this.originalTable);
         // take a breath and rerender before creating sortable table
         // setTimeout(this._delayedStart(evt),10);
         // for immediate start (no delay)
-    	_table._generateSortable(evt);
+    	_this._generateSortable(evt);
       });	
     },
     destroy: function() {
