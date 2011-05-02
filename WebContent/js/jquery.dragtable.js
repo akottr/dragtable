@@ -117,12 +117,16 @@
     _bubbleCols: function() {
       var from = this.originalTable.startIndex;
       var to = this.originalTable.endIndex;
+      /* Find children thead and tbody.
+       * Only to process the immediate tr-children. Bugfix for inner tables
+       */ 
+      var thtb = this.originalTable.el.children();      
       if(from < to) {
         for(var i = from; i < to; i++) {
-          var row1 = this.originalTable.el.find('tr > td:nth-child('+i+')')
-                                          .add(this.originalTable.el.find('tr > th:nth-child('+i+')'));
-          var row2 = this.originalTable.el.find('tr > td:nth-child('+(i+1)+')')
-                                          .add(this.originalTable.el.find('tr > th:nth-child('+(i+1)+')'));
+          var row1 = thtb.find('> tr > td:nth-child('+i+')')
+                         .add(thtb.find('> tr > th:nth-child('+i+')'));
+          var row2 = thtb.find('> tr > td:nth-child('+(i+1)+')')
+                         .add(thtb.find('> tr > th:nth-child('+(i+1)+')'));
           for(var j = 0; j < row1.length; j++) {
             this._swapNodes(row1[j],row2[j]);
           }
@@ -130,10 +134,10 @@
       }
       else {
         for(var i = from; i > to; i--) {
-          var row1 = this.originalTable.el.find('tr > td:nth-child('+i+')')
-                                          .add(this.originalTable.el.find('tr > th:nth-child('+i+')'));
-          var row2 = this.originalTable.el.find('tr > td:nth-child('+(i-1)+')')
-                                          .add(this.originalTable.el.find('tr > th:nth-child('+(i-1)+')'));
+          var row1 = thtb.find('> tr > td:nth-child('+i+')')
+                         .add(thtb.find('> tr > th:nth-child('+i+')'));
+          var row2 = thtb.find('> tr > td:nth-child('+(i-1)+')')
+                         .add(thtb.find('> tr > th:nth-child('+(i-1)+')'));
           for(var j = 0; j < row1.length; j++) {
             this._swapNodes(row1[j],row2[j]);
           }
@@ -220,7 +224,11 @@
       var widthArr = [];
       // compute total width, needed for not wrapping around after the screen ends (floating)
       var totalWidth=0;
-      this.originalTable.el.find('tr > th').each(function(i,v) {
+      /* Find children thead and tbody.
+       * Only to process the immediate tr-children. Bugfix for inner tables
+       */ 
+      var thtb = _this.originalTable.el.children();
+      thtb.find('> tr > th').each(function(i,v) {
         // one extra px on right and left side
         totalWidth+=$(this).outerWidth()+2;
         widthArr.push($(this).width());
@@ -228,12 +236,12 @@
 
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:'+totalWidth+'px;">';
       // assemble the needed html
-      this.originalTable.el.find('tr > th').each(function(i,v) {
+      thtb.find('> tr > th').each(function(i,v) {
         sortableHtml += '<li>';
         sortableHtml += '<table ' +  attrsString  + '>';
-        var row = _this.originalTable.el.find('tr > th:nth-child('+(i+1)+')');
+        var row = thtb.find('> tr > th:nth-child('+(i+1)+')');
         if(_this.options.maxMovingRows > 1) {
-          row = row.add(_this.originalTable.el.find('tr > td:nth-child('+(i+1)+')').slice(0,_this.options.maxMovingRows-1));
+          row = row.add(thtb.find('> tr > td:nth-child('+(i+1)+')').slice(0,_this.options.maxMovingRows-1));
         }
         row.each(function(j) {
           /* the not so easy way (part 2)*/

@@ -1,5 +1,5 @@
 /*!
- * jQuery UI Mouse 1.8.9
+ * jQuery UI Mouse 1.8.12
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -73,6 +73,11 @@ $.widget("ui.mouse", {
 				event.preventDefault();
 				return true;
 			}
+		}
+
+		// Click event may never have fired (Gecko & Opera)
+		if (true === $.data(event.target, this.widgetName + '.preventClickEvent')) {
+			$.removeData(event.target, this.widgetName + '.preventClickEvent');
 		}
 
 		// these delegates are required to keep context
