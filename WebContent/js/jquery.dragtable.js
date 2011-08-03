@@ -247,8 +247,7 @@
           /* the not so easy way (part 2)*/
           if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
             sortableHtml += '<tr '+ rowAttrsArr[j] + '>';
-            // TODO: May cause duplicate style-Attribute
-            sortableHtml += $(this).clone().wrap('<div></div>').parent().html().replace('<TD','<TD style="height:'+heightArr[j]+'px;"');
+            sortableHtml += $(this).clone().css({height:heightArr[j]+'px'}).wrap('<div></div>').parent().html();
           }
           /* the easy way, but does not work very good in IE < 8  (part 2) */
           else {
@@ -266,7 +265,7 @@
       // set width if necessary
       this.sortableTable.el.find('th').each(function(i,v) {
         var _this = $(this);
-         if(widthArr[i] != _this.width()) {
+         if(widthArr[i] > _this.width()) {
            _this.css({'width':widthArr[i]});
          }
       });
