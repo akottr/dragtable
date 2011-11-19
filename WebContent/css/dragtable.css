@@ -121,7 +121,7 @@ table.sar-table th {
 
 /*##### the dragtable stuff #####*/
 .dragtable-sortable { 
-    list-style-type: none; margin: 0; padding: 0; 
+    list-style-type: none; margin: 0; padding: 0; -moz-user-select: none;
 }
 .dragtable-sortable li {
     margin: 0; padding: 0; float: left; font-size: 1em; background: white; 

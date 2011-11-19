@@ -261,7 +261,7 @@
         sortableHtml += '</li>';
       });
       sortableHtml += '</ul>';
-      this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();1
+      this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
       // set width if necessary
       this.sortableTable.el.find('th').each(function(i,v) {
         var _this = $(this);
@@ -289,18 +289,20 @@
       // Start moving by delegating the original event to the new sortable table
       this.sortableTable.movingRow = this.sortableTable.el.find('li:nth-child('+this.originalTable.startIndex+')');
       // TODO: learn more about events. Is this the right way?
-      if($.support.noCloneEvent) {
-        // clone
-        var delegateEvt = $.extend(true, {}, e);
-        this.sortableTable.movingRow.trigger(delegateEvt);
-        // clone
-        var moveEvt = $.extend(true, {}, e);
-        moveEvt = $.extend(true, moveEvt, {type:'mousemove',pageX:e.pageX+5,pageY:e.pageY+5});
-        this.sortableTable.movingRow.trigger(moveEvt);
-      }
-      // only IE
-      else {
-        this.sortableTable.movingRow.trigger(e);
+
+      // create down event and delegate it to sortable
+	  var mousedownEvt = $.Event('mousedown');
+      mousedownEvt.pageX=e.pageX;
+      mousedownEvt.pageY=e.pageY;
+      mousedownEvt.which=1;
+      this.sortableTable.movingRow.trigger(mousedownEvt);
+		  
+	  if($.support.noCloneEvent) {
+	    // create move event and delegate it to sortable
+		var mousemoveEvt = $.Event('mousemove');
+        mousemoveEvt.pageX=e.pageX+5;
+        mousemoveEvt.pageY=e.pageY+5;
+        this.sortableTable.movingRow.trigger(mousemoveEvt);
       }
       // Some inner divs to deliver the posibillity to style the placeholder more sophisticated
       this.sortableTable.el.find('.ui-sortable-placeholder').html('<div class="outer" style="height:100%;"><div class="inner" style="height:100%;"></div></div>');
