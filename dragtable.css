@@ -1,12 +1,10 @@
-/* 
+/** 
  * dragtable
  *
  * @Version 2.0.0
  *
  * default css
- *
  */
-/*##### the dragtable stuff #####*/
 .dragtable-sortable { 
     list-style-type: none; margin: 0; padding: 0; -moz-user-select: none;
 }
