@@ -49,13 +49,6 @@
  * beforeStop: beforeStop
  */
 
-/* TODO: fix it
- * jqueryui sortable Ticket #4482
- * Hotfixed it, but not very nice (deprecated api)
- * if(!p.height() || (jQuery.browser.msie && jQuery.browser.version.match('^7|^6'))) { p.height(self.currentItem.innerHeight() - parseInt(self.currentItem.css('paddingTop')||0, 10) - parseInt(self.currentItem.css('paddingBottom')||0, 10)); };
- * if(!p.width() || (jQuery.browser.msie && jQuery.browser.version.match('^7|^6'))) { p.width(self.currentItem.innerWidth() - parseInt(self.currentItem.css('paddingLeft')||0, 10) - parseInt(self.currentItem.css('paddingRight')||0, 10)); };
- */
-
 /* TODO: support colgroups
  */
  
@@ -201,23 +194,7 @@
           }
         }
         rowAttrsArr.push(attrsString);
-        /* the not so easy way */
-        if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
-          var maxCellHeight = null;
-          $(this).children().each(function() {
-            /* I think here is a bug. I have to take in account the padding-top and padding-bottom
-             * TODO: substract $(this).height().css('padding-top') and $(this).height().css('padding-bottom');
-             * deeper investiagtion needed
-             */
-            var tmp = $(this).height();    
-            if(maxCellHeight == null || tmp > maxCellHeight) {maxCellHeight = tmp;}
-          });
-          heightArr.push(maxCellHeight);
-        }
-        /* the easy way, but does not work very good in IE < 8 */
-        else {
-          heightArr.push($(this).height()); 
-        }
+        heightArr.push($(this).height()); 
       });
 
       // compute width, no special handling for ie needed :-)
@@ -244,17 +221,9 @@
           row = row.add(thtb.find('> tr > td:nth-child('+(i+1)+')').slice(0,_this.options.maxMovingRows-1));
         }
         row.each(function(j) {
-          /* the not so easy way (part 2)*/
-          if(jQuery.browser.msie && jQuery.browser.version.match('^7|^6')) {
-            sortableHtml += '<tr '+ rowAttrsArr[j] + '>';
-            sortableHtml += $(this).clone().css({height:heightArr[j]+'px'}).wrap('<div></div>').parent().html();
-          }
-          /* the easy way, but does not work very good in IE < 8  (part 2) */
-          else {
-            // TODO: May cause duplicate style-Attribute
-            sortableHtml += '<tr ' + rowAttrsArr[j] + '" style="height:'+heightArr[j]+'px;">';
-            sortableHtml += $(this).clone().wrap('<div></div>').parent().html();
-          }
+          // TODO: May cause duplicate style-Attribute
+          sortableHtml += '<tr ' + rowAttrsArr[j] + '" style="height:'+heightArr[j]+'px;">';
+          sortableHtml += $(this).clone().wrap('<div></div>').parent().html();
           sortableHtml += '</tr>';
         });
         sortableHtml += '</table>';
