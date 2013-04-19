@@ -1,3 +1,3 @@
 jquery dragtable
 ================
-samples : https://akottr.github.com/dragtable
+samples : http://akottr.github.io/dragtable
