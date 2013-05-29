@@ -294,6 +294,7 @@
       // Some inner divs to deliver the posibillity to style the placeholder more sophisticated
       this.sortableTable.el.find('.ui-sortable-placeholder').html('<div class="outer" style="height:100%;"><div class="inner" style="height:100%;"></div></div>');
     },
+    bindTo: {},
     _create: function() {
       this.originalTable = {
         el: this.element,
@@ -303,21 +304,21 @@
         endIndex: 0
       };
       // bind draggable to 'th' by default
-      var bindTo = this.originalTable.el.find('th');
+      this.bindTo = this.originalTable.el.find('th');
       // filter only the cols that are accepted
       if (this.options.dragaccept) {
-        bindTo = bindTo.filter(this.options.dragaccept);
+        this.bindTo = this.bindTo.filter(this.options.dragaccept);
       }
       // bind draggable to handle if exists
-      if (bindTo.find(this.options.dragHandle).size() > 0) {
-        bindTo = bindTo.find(this.options.dragHandle);
+      if (this.bindTo.find(this.options.dragHandle).size() > 0) {
+        this.bindTo = this.bindTo.find(this.options.dragHandle);
       }
       // restore state if necessary
       if (this.options.restoreState !== null) {
         $.isFunction(this.options.restoreState) ? this.options.restoreState(this.originalTable) : this._restoreState(this.options.restoreState);
       }
       var _this = this;
-      bindTo.mousedown(function(evt) {
+      this.bindTo.mousedown(function(evt) {
         clearTimeout(this.downTimer);
         this.downTimer = setTimeout(function() {
           _this.originalTable.selectedHandle = $(this);
@@ -330,7 +331,7 @@
       })
     },
     destroy: function() {
-      this._mouseDestroy();
+      this.bindTo.unbind('mousedown');
       $.Widget.prototype.destroy.apply(this, arguments); // default destroy
       // now do other stuff particular to this widget
     }
