@@ -1,5 +1,5 @@
 {
-    "name": "dragtable.js",
+    "name": "dragtable",
     "title": "dragtable.js",
     "description": "jQuery plugin to sort and reorder table columns by using drag and drop",
     "keywords": [
@@ -10,20 +10,20 @@
         "table",
         "dragtable"
     ],
-    "version": "2.0.3",
+    "version": "2.0.4",
     "author": {
         "name": "Andres"
     },
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://github.com/akottr/dragtable/blob/2.0.3/LICENSE.txt"
+            "url": "https://github.com/akottr/dragtable/blob/2.0.4/LICENSE.txt"
         }
     ],
     "bugs": "https://github.com/akottr/dragtable/issues",
     "homepage": "http://akottr.github.io/dragtable/",
     "docs": "http://akottr.github.io/dragtable/",
-    "download": "https://github.com/akottr/dragtable/archive/2.0.3.zip",
+    "download": "https://github.com/akottr/dragtable/archive/2.0.4.zip",
     "dependencies": {
         "jquery": ">=1.7.2"
     }
