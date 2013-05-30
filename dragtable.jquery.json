@@ -1,25 +1,30 @@
 {
-  "name": "dragtable",
-  "title": "jQuery dragtable",
-  "description": "jQuery plugin to sort and reorder table columns by using drag and drop",
-  "keywords": [
-    "drag","drop","order","sort","table","dragtable"
-  ],
-  "version": "2.0.2",
-  "author": {
-    "name": "Andres",
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/akottr/dragtable/blob/2.0.2/LICENSE.txt"
+    "name": "dragtable.js",
+    "title": "dragtable.js",
+    "description": "jQuery plugin to sort and reorder table columns by using drag and drop",
+    "keywords": [
+        "drag",
+        "drop",
+        "order",
+        "sort",
+        "table",
+        "dragtable"
+    ],
+    "version": "2.0.3",
+    "author": {
+        "name": "Andres"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/akottr/dragtable/blob/2.0.3/LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/akottr/dragtable/issues",
+    "homepage": "http://akottr.github.io/dragtable/",
+    "docs": "http://akottr.github.io/dragtable/",
+    "download": "https://github.com/akottr/dragtable/archive/2.0.3.zip",
+    "dependencies": {
+        "jquery": ">=1.7.2"
     }
-  ],
-  "bugs": "https://github.com/akottr/dragtable/issues",
-  "homepage": "http://akottr.github.io/dragtable/",
-  "docs": "http://akottr.github.io/dragtable/",
-  "download": "https://github.com/akottr/dragtable/archive/2.0.2.zip",
-  "dependencies": {
-    "jquery": ">=1.7.2"
-  }
 }
