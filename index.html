@@ -21,6 +21,8 @@
           
     $('#defaultTable').dragtable();
 
+    $('#footerTable').dragtable({excludeFooter:true});
+
     $('#onlyHeaderTable').dragtable({maxMovingRows:1});
 
     $('#persistTable').dragtable({persistState:'/someAjaxUrl'});
@@ -122,6 +124,58 @@ akottr / the garbage man / <span id="e-placeholder">email (mouseover)</span>
             <td>12:30:01 AM</td><td>29.73</td><td>0.00</td><td>1.66</td><td>0.09</td><td>68.52</td>
           </tr>
         </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<div class="sample">
+  <div class="description">
+    <h4>description</h4>
+    <div class="description-content">Table with a fixed footer.</div>
+
+  </div>
+  <div class="code">
+    <h4>code</h4>
+    <div class="code-snippet">
+      <pre><code class="js">$('#footerTable').dragtable({excludeFooter:true});</code></pre>
+    </div>
+  </div>
+  <div class="demo">
+
+    <h4>demo</h4>
+    <div class="demo-content">
+      <table id="footerTable" class="sar-table">
+        <thead>
+          <tr>
+            <th>TIME</th>
+            <th>%user</th>
+
+            <th>%nice</th>
+            <th>%system</th>
+            <th>%iowait</th>
+            <th>%idle</th>                     
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>12:10:01 AM</td><td>28.86</td><td>0.04</td><td>1.65</td><td>0.08</td><td>69.36</td>
+          </tr>
+          <tr>
+            <td>12:20:01 AM</td><td>26.54</td><td>0.00</td><td>1.64</td><td>0.08</td><td>71.74</td>
+
+          </tr> 
+          <tr>
+            <td>12:30:01 AM</td><td>29.73</td><td>0.00</td><td>1.66</td><td>0.09</td><td>68.52</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">Footer: Some random sar values</td>
+          </tr>
+        </tfoot>
       </table>
 
     </div>

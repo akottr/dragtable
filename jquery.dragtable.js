@@ -62,6 +62,7 @@
       revert: true,                 // smooth revert
       dragHandle: '.table-handle',  // handle for moving cols, if not exists the whole 'th' is the handle
       maxMovingRows: 40,            // 1 -> only header. 40 row should be enough, the rest is usually not in the viewport
+      excludeFooter: false,         // excludes the footer row(s) while moving other columns. Make sense if there is a footer with a colspan.
       onlyHeaderThreshold: 100,     // TODO:  not implemented yet, switch automatically between entire col moving / only header moving
       dragaccept: null,             // draggable cols -> default all
       persistState: null,           // url or function -> plug in your custom persistState function right here. function call is persistState(originalTable)
@@ -123,6 +124,9 @@
        * Only to process the immediate tr-children. Bugfix for inner tables
        */
       var thtb = this.originalTable.el.children();
+      if(this.options.excludeFooter) {
+        var thtb = thtb.not('tfoot');
+      }
       if (from < to) {
         for (var i = from; i < to; i++) {
           var row1 = thtb.find('> tr > td:nth-child(' + i + ')')
@@ -215,6 +219,9 @@
        * Only to process the immediate tr-children. Bugfix for inner tables
        */
       var thtb = _this.originalTable.el.children();
+      if(this.options.excludeFooter) {
+        var thtb = thtb.not('tfoot');
+      }
       thtb.find('> tr > th').each(function(i, v) {
         // one extra px on right and left side
         totalWidth += $(this).outerWidth() + 2;
