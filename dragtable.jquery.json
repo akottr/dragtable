@@ -10,20 +10,20 @@
         "table",
         "dragtable"
     ],
-    "version": "2.0.5",
+    "version": "2.0.6",
     "author": {
         "name": "Andres"
     },
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://github.com/akottr/dragtable/blob/2.0.4/LICENSE.txt"
+            "url": "https://github.com/akottr/dragtable/blob/2.0.6/LICENSE.txt"
         }
     ],
     "bugs": "https://github.com/akottr/dragtable/issues",
     "homepage": "http://akottr.github.io/dragtable/",
     "docs": "http://akottr.github.io/dragtable/",
-    "download": "https://github.com/akottr/dragtable/archive/2.0.4.zip",
+    "download": "https://github.com/akottr/dragtable/archive/2.0.6.zip",
     "dependencies": {
         "jquery": ">=1.7.2"
     }
