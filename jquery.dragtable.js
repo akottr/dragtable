@@ -186,7 +186,9 @@
       var attrsString = '';
       for (var i = 0; i < attrs.length; i++) {
         if (attrs[i].nodeValue) {
-          attrsString += attrs[i].nodeName + '="' + attrs[i].nodeValue + '" ';
+          if(attrs[i].nodeName!='id' && attrs[i].nodeName!='width') {
+            attrsString += attrs[i].nodeName + '="' + attrs[i].nodeValue + '" ';
+          }
         }
       }
 
