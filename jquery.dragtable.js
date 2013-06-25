@@ -56,24 +56,24 @@
  * Thx to kriswill, https://github.com/akottr/dragtable/pull/9
  */
 
-!function($) {
+(function($) {
   $.widget("akottr.dragtable", {
     options: {
-      revert: false,                // smooth revert
-      dragHandle: '.table-handle',  // handle for moving cols, if not exists the whole 'th' is the handle
-      maxMovingRows: 40,            // 1 -> only header. 40 row should be enough, the rest is usually not in the viewport
-      excludeFooter: false,         // excludes the footer row(s) while moving other columns. Make sense if there is a footer with a colspan.
-      onlyHeaderThreshold: 100,     // TODO:  not implemented yet, switch automatically between entire col moving / only header moving
-      dragaccept: null,             // draggable cols -> default all
-      persistState: null,           // url or function -> plug in your custom persistState function right here. function call is persistState(originalTable)
-      restoreState: null,           // JSON-Object or function:  some kind of experimental aka Quick-Hack TODO: do it better
-      clickDelay: 10,               // ms to wait before rendering sortable list and delegating click event
-      containment: 'parent',        // @see http://api.jqueryui.com/sortable/#option-containment, use it if you want to move in 2 dimesnions (together with axis: null)
-      cursor: 'move',               // @see http://api.jqueryui.com/sortable/#option-cursor
-      cursorAt: false,              // @see http://api.jqueryui.com/sortable/#option-cursorAt
-      distance: 0,                  // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
-      tolerance: 'pointer',         // @see http://api.jqueryui.com/sortable/#option-tolerance
-      axis: 'x',                    // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting  
+      revert: false,               // smooth revert
+      dragHandle: '.table-handle', // handle for moving cols, if not exists the whole 'th' is the handle
+      maxMovingRows: 40,           // 1 -> only header. 40 row should be enough, the rest is usually not in the viewport
+      excludeFooter: false,        // excludes the footer row(s) while moving other columns. Make sense if there is a footer with a colspan. */
+      onlyHeaderThreshold: 100,    // TODO:  not implemented yet, switch automatically between entire col moving / only header moving
+      dragaccept: null,            // draggable cols -> default all
+      persistState: null,          // url or function -> plug in your custom persistState function right here. function call is persistState(originalTable)
+      restoreState: null,          // JSON-Object or function:  some kind of experimental aka Quick-Hack TODO: do it better
+      clickDelay: 10,              // ms to wait before rendering sortable list and delegating click event
+      containment: 'parent',       // @see http://api.jqueryui.com/sortable/#option-containment, use it if you want to move in 2 dimesnions (together with axis: null)
+      cursor: 'move',              // @see http://api.jqueryui.com/sortable/#option-cursor
+      cursorAt: false,             // @see http://api.jqueryui.com/sortable/#option-cursorAt
+      distance: 0,                 // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
+      tolerance: 'pointer',        // @see http://api.jqueryui.com/sortable/#option-tolerance
+      axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting  
       beforeStart: $.noop,
       beforeMoving: $.noop,
       beforeReorganize: $.noop,
@@ -125,7 +125,7 @@
        * Only to process the immediate tr-children. Bugfix for inner tables
        */
       var thtb = this.originalTable.el.children();
-      if(this.options.excludeFooter) {
+      if (this.options.excludeFooter) {
         thtb = thtb.not('tfoot');
       }
       if (from < to) {
@@ -190,7 +190,7 @@
       var attrs = this.originalTable.el[0].attributes;
       var attrsString = '';
       for (var i = 0; i < attrs.length; i++) {
-        if (attrs[i].nodeValue && attrs[i].nodeName!='id' && attrs[i].nodeName!='width') {
+        if (attrs[i].nodeValue && attrs[i].nodeName != 'id' && attrs[i].nodeName != 'width') {
           attrsString += attrs[i].nodeName + '="' + attrs[i].nodeValue + '" ';
         }
       }
@@ -204,7 +204,7 @@
         var attrs = this.attributes;
         var attrsString = "";
         for (var j = 0; j < attrs.length; j++) {
-          if (attrs[j].nodeValue && attrs[j].nodeName!='id') {
+          if (attrs[j].nodeValue && attrs[j].nodeName != 'id') {
             attrsString += " " + attrs[j].nodeName + '="' + attrs[j].nodeValue + '"';
           }
         }
@@ -220,7 +220,7 @@
        * Only to process the immediate tr-children. Bugfix for inner tables
        */
       var thtb = _this.originalTable.el.children();
-      if(this.options.excludeFooter) {
+      if (this.options.excludeFooter) {
         thtb = thtb.not('tfoot');
       }
       thtb.find('> tr > th').each(function(i, v) {
@@ -347,11 +347,12 @@
 
   /** closure-scoped "private" functions **/
 
-  var body_onselectstart_save = $(document.body).attr('onselectstart')
-    , body_unselectable_save = $(document.body).attr('unselectable');
+  var body_onselectstart_save = $(document.body).attr('onselectstart'),
+    body_unselectable_save = $(document.body).attr('unselectable');
 
   // css properties to disable user-select on the body tag by appending a <style> tag to the <head>
   // remove any current document selections
+
   function disableTextSelection() {
     // jQuery doesn't support the element.text attribute in MSIE 8
     // http://stackoverflow.com/questions/2692770/style-style-textcss-appendtohead-does-not-work-in-ie
@@ -366,6 +367,7 @@
   }
 
   // remove the <style> tag, and restore the original <body> onselectstart attribute
+
   function restoreTextSelection() {
     $('#__dragtable_disable_text_selection__').remove();
     if (body_onselectstart_save) {
@@ -386,4 +388,4 @@
     b.parentNode.insertBefore(a, b);
     aparent.insertBefore(b, asibling);
   }
-}(jQuery);
+})(jQuery);
