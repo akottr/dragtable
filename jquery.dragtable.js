@@ -59,7 +59,7 @@
 !function($) {
   $.widget("akottr.dragtable", {
     options: {
-      revert: true,                 // smooth revert
+      revert: false,                // smooth revert
       dragHandle: '.table-handle',  // handle for moving cols, if not exists the whole 'th' is the handle
       maxMovingRows: 40,            // 1 -> only header. 40 row should be enough, the rest is usually not in the viewport
       excludeFooter: false,         // excludes the footer row(s) while moving other columns. Make sense if there is a footer with a colspan.
@@ -94,7 +94,7 @@
     persistState: function() {
       var _this = this;
       this.originalTable.el.find('th').each(function(i) {
-        if (this.id != '') {
+        if (this.id !== '') {
           _this.originalTable.sortOrder[this.id] = i;
         }
       });
@@ -110,14 +110,15 @@
      * |   id2  |   id1   |   id3   |
      */
     _restoreState: function(persistObj) {
-      for (n in persistObj) {
+      for (var n in persistObj) {
         this.originalTable.startIndex = $('#' + n).closest('th').prevAll().size() + 1;
-        this.originalTable.endIndex = parseInt(persistObj[n] + 1);
+        this.originalTable.endIndex = parseInt(persistObj[n] + 1, 10);
         this._bubbleCols();
       }
     },
     // bubble the moved col left or right
     _bubbleCols: function() {
+      var i, j, col1, col2;
       var from = this.originalTable.startIndex;
       var to = this.originalTable.endIndex;
       /* Find children thead and tbody.
@@ -125,26 +126,26 @@
        */
       var thtb = this.originalTable.el.children();
       if(this.options.excludeFooter) {
-        var thtb = thtb.not('tfoot');
+        thtb = thtb.not('tfoot');
       }
       if (from < to) {
-        for (var i = from; i < to; i++) {
-          var row1 = thtb.find('> tr > td:nth-child(' + i + ')')
+        for (i = from; i < to; i++) {
+          col1 = thtb.find('> tr > td:nth-child(' + i + ')')
             .add(thtb.find('> tr > th:nth-child(' + i + ')'));
-          var row2 = thtb.find('> tr > td:nth-child(' + (i + 1) + ')')
+          col2 = thtb.find('> tr > td:nth-child(' + (i + 1) + ')')
             .add(thtb.find('> tr > th:nth-child(' + (i + 1) + ')'));
-          for (var j = 0; j < row1.length; j++) {
-            swapNodes(row1[j], row2[j]);
+          for (j = 0; j < col1.length; j++) {
+            swapNodes(col1[j], col2[j]);
           }
         }
       } else {
-        for (var i = from; i > to; i--) {
-          var row1 = thtb.find('> tr > td:nth-child(' + i + ')')
+        for (i = from; i > to; i--) {
+          col1 = thtb.find('> tr > td:nth-child(' + i + ')')
             .add(thtb.find('> tr > th:nth-child(' + i + ')'));
-          var row2 = thtb.find('> tr > td:nth-child(' + (i - 1) + ')')
+          col2 = thtb.find('> tr > td:nth-child(' + (i - 1) + ')')
             .add(thtb.find('> tr > th:nth-child(' + (i - 1) + ')'));
-          for (var j = 0; j < row1.length; j++) {
-            swapNodes(row1[j], row2[j]);
+          for (j = 0; j < col1.length; j++) {
+            swapNodes(col1[j], col2[j]);
           }
         }
       }
@@ -175,7 +176,7 @@
         // for chrome a little bit more than 1 ms because we want to force a rerender
         _this.originalTable.endIndex = _this.sortableTable.movingRow.prevAll().size() + 1;
         setTimeout(_this._rearrangeTableBackroundProcessing(), 50);
-      }
+      };
     },
     /*
      * Disrupts the table. The original table stays the same.
@@ -183,7 +184,7 @@
      * each li with a separate table representig a single col of the original table.
      */
     _generateSortable: function(e) {
-      !e.cancelBubble && (e.cancelBubble = true)
+      !e.cancelBubble && (e.cancelBubble = true);
       var _this = this;
       // table attributes
       var attrs = this.originalTable.el[0].attributes;
@@ -220,7 +221,7 @@
        */
       var thtb = _this.originalTable.el.children();
       if(this.options.excludeFooter) {
-        var thtb = thtb.not('tfoot');
+        thtb = thtb.not('tfoot');
       }
       thtb.find('> tr > th').each(function(i, v) {
         // one extra px on right and left side
@@ -239,11 +240,11 @@
         }
         row.each(function(j) {
           // TODO: May cause duplicate style-Attribute
-          var row_content = $(this).clone().wrap('<div></div>').parent().html()
-          if (row_content.toLowerCase().indexOf('<th') === 0) sortableHtml += "<thead>"
+          var row_content = $(this).clone().wrap('<div></div>').parent().html();
+          if (row_content.toLowerCase().indexOf('<th') === 0) sortableHtml += "<thead>";
           sortableHtml += '<tr ' + rowAttrsArr[j] + '" style="height:' + heightArr[j] + 'px;">';
           sortableHtml += row_content;
-          if (row_content.toLowerCase().indexOf('<th') === 0) sortableHtml += "</thead>"
+          if (row_content.toLowerCase().indexOf('<th') === 0) sortableHtml += "</thead>";
           sortableHtml += '</tr>';
         });
         sortableHtml += '</table>';
@@ -335,7 +336,7 @@
         }, _this.options.clickDelay);
       }).mouseup(function(evt) {
         clearTimeout(this.downTimer);
-      })
+      });
     },
     destroy: function() {
       this.bindTo.unbind('mousedown');
@@ -358,7 +359,7 @@
     $(document.head).append($style);
     $(document.body).attr('onselectstart', 'return false;').attr('unselectable', 'on');
     if (window.getSelection) {
-      window.getSelection().removeAllRanges()
+      window.getSelection().removeAllRanges();
     } else {
       document.selection.empty(); // MSIE http://msdn.microsoft.com/en-us/library/ms535869%28v=VS.85%29.aspx
     }
