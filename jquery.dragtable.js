@@ -235,7 +235,7 @@
 
       //compute containment
       var dragWidth = $(e.target).closest('th').width();
-      var lastWidth = widthArr[widthArr.length-1]
+      var lastWidth = this.originalTable.startIndex == widthArr.length ? widthArr[widthArr.length-2] : widthArr[widthArr.length-1];
       var firstWidth = this.originalTable.startIndex == 1 ? widthArr[1] : widthArr[0];
       var addLeft = dragWidth - firstWidth > 0 ? dragWidth - firstWidth : 0;
       var addWidth = dragWidth - lastWidth > 0 ? dragWidth - lastWidth : 0; 
