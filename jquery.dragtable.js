@@ -68,7 +68,7 @@
       persistState: null,          // url or function -> plug in your custom persistState function right here. function call is persistState(originalTable)
       restoreState: null,          // JSON-Object or function:  some kind of experimental aka Quick-Hack TODO: do it better
       clickDelay: 10,              // ms to wait before rendering sortable list and delegating click event
-      containment: 'parent',       // @see http://api.jqueryui.com/sortable/#option-containment, use it if you want to move in 2 dimesnions (together with axis: null)
+      containment: '.dragtable-sortable-containment',       // @see http://api.jqueryui.com/sortable/#option-containment, use it if you want to move in 2 dimesnions (together with axis: null)
       cursor: 'move',              // @see http://api.jqueryui.com/sortable/#option-cursor
       cursorAt: false,             // @see http://api.jqueryui.com/sortable/#option-cursorAt
       distance: 0,                 // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
@@ -88,6 +88,7 @@
     },
     sortableTable: {
       el: $(),
+      containment: $(),
       selectedHandle: $(),
       movingRow: $()
     },
@@ -156,6 +157,7 @@
         _this._bubbleCols();
         _this.options.beforeStop(this.originalTable);
         _this.sortableTable.el.remove();
+        _this.sortableTable.containment.remove();
         restoreTextSelection();
         // persist state if necessary
         if (_this.options.persistState !== null) {
@@ -186,6 +188,8 @@
     _generateSortable: function(e) {
       !e.cancelBubble && (e.cancelBubble = true);
       var _this = this;
+      // assign start index
+      this.originalTable.startIndex = $(e.target).closest('th').prevAll().size() + 1;
       // table attributes
       var attrs = this.originalTable.el[0].attributes;
       var attrsString = '';
@@ -229,7 +233,15 @@
         widthArr.push($(this).width());
       });
 
-      var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
+      //compute containment
+      var dragWidth = $(e.target).closest('th').width();
+      var lastWidth = widthArr[widthArr.length-1]
+      var firstWidth = this.originalTable.startIndex == 1 ? widthArr[1] : widthArr[1];
+      var addLeft = dragWidth - firstWidth > 0 ? dragWidth - firstWidth : 0;
+      var addWidth = dragWidth - lastWidth > 0 ? dragWidth - lastWidth : 0; 
+
+      var containment = '<ul class="dragtable-sortable-containment" style="position:absolute;"></ul>';
+      var sortableHtml = containment + '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
       thtb.find('> tr > th').each(function(i, v) {
         sortableHtml += '<li>';
@@ -252,6 +264,10 @@
       });
       sortableHtml += '</ul>';
       this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
+      this.sortableTable.containment = this.sortableTable.el.prev();
+      this.sortableTable.containment.css({left: (-addLeft + this.sortableTable.containment.position().left),
+                                          width: (totalWidth + addLeft + addWidth) + 'px'});
+      
       // set width if necessary
       this.sortableTable.el.find('th').each(function(i, v) {
         var _this = $(this);
@@ -278,9 +294,6 @@
         distance: this.options.distance,
         axis: this.options.axis
       });
-
-      // assign start index
-      this.originalTable.startIndex = $(e.target).closest('th').prevAll().size() + 1;
 
       this.options.beforeMoving(this.originalTable, this.sortableTable);
       // Start moving by delegating the original event to the new sortable table
