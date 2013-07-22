@@ -1,7 +1,7 @@
 /*!
  * dragtable
  *
- * @Version 2.0.4
+ * @Version 2.0.7
  *
  * Copyright (c) 2010, Andres Koetter akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -68,7 +68,7 @@
       persistState: null,          // url or function -> plug in your custom persistState function right here. function call is persistState(originalTable)
       restoreState: null,          // JSON-Object or function:  some kind of experimental aka Quick-Hack TODO: do it better
       clickDelay: 10,              // ms to wait before rendering sortable list and delegating click event
-      containment: 'parent',       // @see http://api.jqueryui.com/sortable/#option-containment, use it if you want to move in 2 dimesnions (together with axis: null)
+      containment: null,           // @see http://api.jqueryui.com/sortable/#option-containment, use it if you want to move in 2 dimesnions (together with axis: null)
       cursor: 'move',              // @see http://api.jqueryui.com/sortable/#option-cursor
       cursorAt: false,             // @see http://api.jqueryui.com/sortable/#option-cursorAt
       distance: 0,                 // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
