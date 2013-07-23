@@ -234,12 +234,18 @@
       });
 
       //compute containment
-      var dragWidth = $(e.target).closest('th').width();
-      var lastWidth = this.originalTable.startIndex == widthArr.length ? widthArr[widthArr.length-2] : widthArr[widthArr.length-1];
-      var firstWidth = this.originalTable.startIndex == 1 ? widthArr[1] : widthArr[0];
-      var addLeft = dragWidth - firstWidth > 0 ? dragWidth - firstWidth : 0;
-      var addWidth = dragWidth - lastWidth > 0 ? dragWidth - lastWidth : 0; 
-
+      var elemWidth = $(e.target).closest('th').width();
+      var offsetX = e.pageX - $(e.currentTarget).position().left;
+      containmentObj = {
+        thWidth: elemWidth,
+        left: offsetX,
+        right: elemWidth - offsetX,
+        firstWidth: this.originalTable.startIndex == 1 ? widthArr[1] : widthArr[0],
+        lastWidth: this.originalTable.startIndex == widthArr.length ? widthArr[widthArr.length-2] : widthArr[widthArr.length-1],
+      }
+      containmentObj.offsetLeft = containmentObj.left - containmentObj.firstWidth > 0 ? containmentObj.left - containmentObj.firstWidth : 0;
+      containmentObj.offsetRight = containmentObj.right - containmentObj.lastWidth > 0 ? containmentObj.right - containmentObj.lastWidth : 0; 
+      
       var containment = '<ul class="dragtable-sortable-containment" style="position:absolute;"></ul>';
       var sortableHtml = containment + '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
@@ -265,8 +271,8 @@
       sortableHtml += '</ul>';
       this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
       this.sortableTable.containment = this.sortableTable.el.prev();
-      this.sortableTable.containment.css({left: (-addLeft + this.sortableTable.containment.position().left),
-                                          width: (totalWidth + addLeft + addWidth) + 'px'});
+      this.sortableTable.containment.css({left: (-containmentObj.offsetLeft + this.sortableTable.containment.position().left),
+                                          width: (totalWidth + containmentObj.offsetLeft + containmentObj.offsetRight) + 'px'});
       
       // set width if necessary
       this.sortableTable.el.find('th').each(function(i, v) {
