@@ -55,8 +55,15 @@
 /*
  * Thx to kriswill, https://github.com/akottr/dragtable/pull/9
  */
-
-(function($) {
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery', 'jqueryui'], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
   $.widget("akottr.dragtable", {
     options: {
       revert: false,               // smooth revert
@@ -388,4 +395,4 @@
     b.parentNode.insertBefore(a, b);
     aparent.insertBefore(b, asibling);
   }
-})(jQuery);
+}));

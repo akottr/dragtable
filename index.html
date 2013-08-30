@@ -7,16 +7,15 @@
 <link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/akottr.css" />
 <link rel="stylesheet" type="text/css" href="dragtable.css" />
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<script src="jquery.dragtable.js"></script>
-
-<!-- only for jquery.chili-2.2.js -->
-<script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>
-<script type="text/javascript" src="http://akottr.github.io/js/jquery.chili-2.2.js"></script>
-
-
-<script type="text/javascript">
+<script src="require.js"></script>
+<script>
+require.config({
+    paths: {
+        jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min',
+        jqueryui: 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min'    
+      }
+});
+require( ["jquery", "jqueryui", "jquery.dragtable"], function(jQuery) {
   $(document).ready(function() {
           
     $('#defaultTable').dragtable();
@@ -53,8 +52,8 @@
     });    
     
   });
+});
 </script>
-
 
 <title>jquery.dragtable.js</title>
 </head>
