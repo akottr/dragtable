@@ -255,10 +255,9 @@
       this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
       // set width if necessary
       this.sortableTable.el.find('> li > table').each(function(i, v) {
-        this.width = widthArr[i] + 'px';
-      });
-      this.sortableTable.el.find('> li > table > thead > tr > th').each(function(i, v) {
-        this.width = widthArr[i] + 'px';
+        if (widthArr[i] < $(this).width()) {
+          this.width = widthArr[i] + 'px';
+        }
       });
 
       // assign this.sortableTable.selectedHandle
