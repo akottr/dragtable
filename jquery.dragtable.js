@@ -257,6 +257,9 @@
       this.sortableTable.el.find('> li > table').each(function(i, v) {
         this.width = widthArr[i] + 'px';
       });
+      this.sortableTable.el.find('> li > table > thead > tr > th').each(function(i, v) {
+        this.width = widthArr[i] + 'px';
+      });
 
       // assign this.sortableTable.selectedHandle
       this.sortableTable.selectedHandle = this.sortableTable.el.find('th .dragtable-handle-selected');
