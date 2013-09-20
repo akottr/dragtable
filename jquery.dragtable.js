@@ -225,8 +225,9 @@
       }
       thtb.find('> tr > th').each(function(i, v) {
         // one extra px on right and left side
-        totalWidth += $(this).outerWidth() + 2;
-        widthArr.push($(this).width());
+        var w = $(this).outerWidth();
+        widthArr.push(w);
+        totalWidth += w + 2;
       });
 
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
@@ -253,12 +254,9 @@
       sortableHtml += '</ul>';
       this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
       // set width if necessary
-      this.sortableTable.el.find('th').each(function(i, v) {
-        var _this = $(this);
-        if (widthArr[i] > _this.width()) {
-          _this.css({
-            'width': widthArr[i]
-          });
+      this.sortableTable.el.find('> li > table').each(function(i, v) {
+        if (widthArr[i] < $(this).width()) {
+          this.width = widthArr[i] + 'px';
         }
       });
 
@@ -300,7 +298,12 @@
       }));
 
       // Some inner divs to deliver the posibillity to style the placeholder more sophisticated
-      this.sortableTable.el.find('.ui-sortable-placeholder').html('<div class="outer" style="height:100%;"><div class="inner" style="height:100%;"></div></div>');
+      var placeholder = this.sortableTable.el.find('.ui-sortable-placeholder');
+      if(!placeholder.height()  <= 0) {
+        placeholder.css('height', this.sortableTable.el.find('.ui-sortable-helper').height());
+      }
+
+      placeholder.html('<div class="outer" style="height:100%;"><div class="inner" style="height:100%;"></div></div>');
     },
     bindTo: {},
     _create: function() {
