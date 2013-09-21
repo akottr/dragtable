@@ -1,9 +1,9 @@
 /*!
  * dragtable
  *
- * @Version 2.0.7
+ * @Version 2.0.9
  *
- * Copyright (c) 2010, Andres Koetter akottr@gmail.com
+ * Copyright (c) 2010-2013, Andres akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
  *
@@ -255,8 +255,9 @@
       this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
       // set width if necessary
       this.sortableTable.el.find('> li > table').each(function(i, v) {
-        if (widthArr[i] < $(this).width()) {
-          this.width = widthArr[i] + 'px';
+        var _this = $(this); 
+        if (widthArr[i] < _this.width()) {
+          _this.css('width', widthArr[i] + 'px');
         }
       });
 
