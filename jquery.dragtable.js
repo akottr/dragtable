@@ -283,7 +283,7 @@
 
       this.options.beforeMoving(this.originalTable, this.sortableTable);
       // Start moving by delegating the original event to the new sortable table
-      this.sortableTable.movingRow = this.sortableTable.el.find('li:nth-child(' + this.originalTable.startIndex + ')');
+      this.sortableTable.movingRow = this.sortableTable.el.find('> li:nth-child(' + this.originalTable.startIndex + ')');
 
       // prevent the user from drag selecting "highlighting" surrounding page elements
       disableTextSelection();
