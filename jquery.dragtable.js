@@ -331,11 +331,13 @@
       }
       var _this = this;
       this.bindTo.mousedown(function(evt) {
+        if (_this.options.beforeStart(this.originalTable) === false) {
+          return;
+        }
         clearTimeout(this.downTimer);
         this.downTimer = setTimeout(function() {
           _this.originalTable.selectedHandle = $(this);
           _this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
-          _this.options.beforeStart(this.originalTable);
           _this._generateSortable(evt);
         }, _this.options.clickDelay);
       }).mouseup(function(evt) {
