@@ -283,7 +283,7 @@
 
       this.options.beforeMoving(this.originalTable, this.sortableTable);
       // Start moving by delegating the original event to the new sortable table
-      this.sortableTable.movingRow = this.sortableTable.el.find('li:nth-child(' + this.originalTable.startIndex + ')');
+      this.sortableTable.movingRow = this.sortableTable.el.find('> li:nth-child(' + this.originalTable.startIndex + ')');
 
       // prevent the user from drag selecting "highlighting" surrounding page elements
       disableTextSelection();
@@ -331,11 +331,13 @@
       }
       var _this = this;
       this.bindTo.mousedown(function(evt) {
+        if (_this.options.beforeStart(this.originalTable) === false) {
+          return;
+        }
         clearTimeout(this.downTimer);
         this.downTimer = setTimeout(function() {
           _this.originalTable.selectedHandle = $(this);
           _this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
-          _this.options.beforeStart(this.originalTable);
           _this._generateSortable(evt);
         }, _this.options.clickDelay);
       }).mouseup(function(evt) {
