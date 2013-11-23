@@ -1,7 +1,7 @@
 /*!
  * dragtable
  *
- * @Version 2.0.9
+ * @Version 2.0.10
  *
  * Copyright (c) 2010-2013, Andres akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -48,12 +48,8 @@
  * start: start,
  * beforeStop: beforeStop
  */
-
-/* TODO: support colgroups
- */
-
 /*
- * Thx to kriswill, https://github.com/akottr/dragtable/pull/9
+ * Special thx to all pull requests comitters
  */
 
 (function($) {
@@ -74,7 +70,7 @@
       distance: 0,                 // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
       tolerance: 'pointer',        // @see http://api.jqueryui.com/sortable/#option-tolerance
       axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting  
-      beforeStart: $.noop,
+      beforeStart: $.noop,         // returning FALSE will stop the execution chain.
       beforeMoving: $.noop,
       beforeReorganize: $.noop,
       beforeStop: $.noop
