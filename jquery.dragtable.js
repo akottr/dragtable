@@ -252,7 +252,7 @@
       // set width if necessary
       this.sortableTable.el.find('> li > table').each(function(i, v) {
         var _this = $(this); 
-        if (widthArr[i] < _this.width()) {
+        if (_this.width() < widthArr[i]) {
           _this.css('width', widthArr[i] + 'px');
         }
       });
