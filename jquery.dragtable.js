@@ -341,6 +341,9 @@
         clearTimeout(this.downTimer);
       });
     },
+    redraw: function(){
+      this._create();
+    },
     destroy: function() {
       this.bindTo.unbind('mousedown');
       $.Widget.prototype.destroy.apply(this, arguments); // default destroy
