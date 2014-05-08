@@ -229,7 +229,8 @@
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
       thtb.find('> tr > th').each(function(i, v) {
-        sortableHtml += '<li>';
+        var width_li = $(this).outerWidth();
+        sortableHtml += '<li style="width:' + width_li + 'px;">';
         sortableHtml += '<table ' + attrsString + '>';
         var row = thtb.find('> tr > th:nth-child(' + (i + 1) + ')');
         if (_this.options.maxMovingRows > 1) {
