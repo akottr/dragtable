@@ -1,7 +1,7 @@
 /*!
  * dragtable
  *
- * @Version 2.0.10
+ * @Version 2.0.11
  *
  * Copyright (c) 2010-2013, Andres akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -63,13 +63,14 @@
       dragaccept: null,            // draggable cols -> default all
       persistState: null,          // url or function -> plug in your custom persistState function right here. function call is persistState(originalTable)
       restoreState: null,          // JSON-Object or function:  some kind of experimental aka Quick-Hack TODO: do it better
+      exact: true,                 // removes pixels, so that the overlay table width fits exactly the original table width
       clickDelay: 10,              // ms to wait before rendering sortable list and delegating click event
       containment: null,           // @see http://api.jqueryui.com/sortable/#option-containment, use it if you want to move in 2 dimesnions (together with axis: null)
       cursor: 'move',              // @see http://api.jqueryui.com/sortable/#option-cursor
       cursorAt: false,             // @see http://api.jqueryui.com/sortable/#option-cursorAt
       distance: 0,                 // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
       tolerance: 'pointer',        // @see http://api.jqueryui.com/sortable/#option-tolerance
-      axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting  
+      axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting
       beforeStart: $.noop,         // returning FALSE will stop the execution chain.
       beforeMoving: $.noop,
       beforeReorganize: $.noop,
@@ -220,11 +221,16 @@
         thtb = thtb.not('tfoot');
       }
       thtb.find('> tr > th').each(function(i, v) {
-        // one extra px on right and left side
         var w = $(this).outerWidth();
         widthArr.push(w);
-        totalWidth += w + 2;
+        totalWidth += w;
       });
+      if(_this.options.exact) {
+          var difference = totalWidth - _this.originalTable.el.outerWidth();
+          widthArr[0] -= difference;
+      }
+      // one extra px on right and left side
+      totalWidth += 2
 
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
@@ -251,10 +257,7 @@
       this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
       // set width if necessary
       this.sortableTable.el.find('> li > table').each(function(i, v) {
-        var _this = $(this); 
-        if (widthArr[i] < _this.width()) {
-          _this.css('width', widthArr[i] + 'px');
-        }
+        $(this).css('width', widthArr[i] + 'px');
       });
 
       // assign this.sortableTable.selectedHandle
@@ -339,6 +342,10 @@
       }).mouseup(function(evt) {
         clearTimeout(this.downTimer);
       });
+    },
+    redraw: function(){
+      this.destroy();
+      this._create();
     },
     destroy: function() {
       this.bindTo.unbind('mousedown');
