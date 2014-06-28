@@ -232,7 +232,7 @@
       // one extra px on right and left side
       totalWidth += 2
 
-      var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
+      var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; left:' + _this.originalTable.el.offset().left + 'px; ' width:' + totalWidth + 'px;">';
       // assemble the needed html
       thtb.find('> tr > th').each(function(i, v) {
         sortableHtml += '<li>';
