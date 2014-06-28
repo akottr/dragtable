@@ -330,6 +330,9 @@
       }
       var _this = this;
       this.bindTo.mousedown(function(evt) {
+        
+        if(evt.which!==1) return;
+        
         if (_this.options.beforeStart(this.originalTable) === false) {
           return;
         }
