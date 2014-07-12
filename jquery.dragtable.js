@@ -330,7 +330,7 @@
       }
       var _this = this;
       this.bindTo.mousedown(function(evt) {
-        if (_this.options.beforeStart(this.originalTable) === false) {
+        if (_this.options.beforeStart(_this.originalTable) === false) {
           return;
         }
         clearTimeout(this.downTimer);
