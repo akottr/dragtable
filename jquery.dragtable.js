@@ -151,7 +151,7 @@
       var _this = this;
       return function() {
         _this._bubbleCols();
-        _this.options.beforeStop(this.originalTable);
+        _this.options.beforeStop(_this.originalTable);
         _this.sortableTable.el.remove();
         restoreTextSelection();
         // persist state if necessary
