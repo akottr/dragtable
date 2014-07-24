@@ -151,7 +151,7 @@
       var _this = this;
       return function() {
         _this._bubbleCols();
-        _this.options.beforeStop(this.originalTable);
+        _this.options.beforeStop(_this.originalTable);
         _this.sortableTable.el.remove();
         restoreTextSelection();
         // persist state if necessary
@@ -330,7 +330,7 @@
       }
       var _this = this;
       this.bindTo.mousedown(function(evt) {
-        if (_this.options.beforeStart(this.originalTable) === false) {
+        if (_this.options.beforeStart(_this.originalTable) === false) {
           return;
         }
         clearTimeout(this.downTimer);
