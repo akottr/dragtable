@@ -1,7 +1,7 @@
 /*!
  * dragtable
  *
- * @Version 2.0.11
+ * @Version 2.0.12
  *
  * Copyright (c) 2010-2013, Andres akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -330,6 +330,8 @@
       }
       var _this = this;
       this.bindTo.mousedown(function(evt) {
+        // listen only to left mouse click
+        if(evt.which!==1) return;
         if (_this.options.beforeStart(_this.originalTable) === false) {
           return;
         }
