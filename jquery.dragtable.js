@@ -1,7 +1,7 @@
 /*!
  * dragtable
  *
- * @Version 2.0.12
+ * @Version 2.0.13
  *
  * Copyright (c) 2010-2013, Andres akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
