@@ -53,7 +53,7 @@
  */
 
 (function($) {
-  $.widget("akottr.dragtable", $.ui.mouse, {
+  $.widget("akottr.dragtable", {
     options: {
       revert: false,               // smooth revert
       dragHandle: '.table-handle', // handle for moving cols, if not exists the whole 'th' is the handle
@@ -328,34 +328,29 @@
       if (this.options.restoreState !== null) {
         $.isFunction(this.options.restoreState) ? this.options.restoreState(this.originalTable) : this._restoreState(this.options.restoreState);
       }
-      this._mouseInit();
-    },
-    _mouseDown: function (evt) {
-        if (!(this.bindTo.is(evt.originalEvent.srcElement) || this.bindTo.find(evt.originalEvent.srcElement).length > 0)) {
-            return;
+      var _this = this;
+      this.bindTo.mousedown(function(evt) {
+        // listen only to left mouse click
+        if(evt.which!==1) return;
+        if (_this.options.beforeStart(_this.originalTable) === false) {
+          return;
         }
-
-        if (this.options.beforeStart(this.originalTable) === false) {
-            return;
-        }
-
         clearTimeout(this.downTimer);
-        var _this = this;
         this.downTimer = setTimeout(function() {
-            _this.originalTable.selectedHandle = $(this);
-            _this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
-            _this._generateSortable(evt);
+          _this.originalTable.selectedHandle = $(this);
+          _this.originalTable.selectedHandle.addClass('dragtable-handle-selected');
+          _this._generateSortable(evt);
         }, _this.options.clickDelay);
-    },
-    _mouseStop: function () {
-        clearTimeout(this.downTimer);    
+      }).mouseup(function(evt) {
+        clearTimeout(this.downTimer);
+      });
     },
     redraw: function(){
       this.destroy();
       this._create();
     },
     destroy: function() {
-      this._mouseDestroy();
+      this.bindTo.unbind('mousedown');
       $.Widget.prototype.destroy.apply(this, arguments); // default destroy
       // now do other stuff particular to this widget
     }
