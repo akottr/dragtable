@@ -109,7 +109,7 @@
     _restoreState: function(persistObj) {
       for (var n in persistObj) {
         this.originalTable.startIndex = $('#' + n).closest('th').prevAll().size() + 1;
-        this.originalTable.endIndex = parseInt(persistObj[n] + 1, 10);
+        this.originalTable.endIndex = parseInt(persistObj[n], 10) + 1;
         this._bubbleCols();
       }
     },
