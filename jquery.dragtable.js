@@ -1,7 +1,7 @@
 /*!
  * dragtable
  *
- * @Version 2.0.13
+ * @Version 2.0.14
  *
  * Copyright (c) 2010-2013, Andres akottr@gmail.com
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -70,7 +70,7 @@
       cursorAt: false,             // @see http://api.jqueryui.com/sortable/#option-cursorAt
       distance: 0,                 // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
       tolerance: 'pointer',        // @see http://api.jqueryui.com/sortable/#option-tolerance
-        axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting
+      axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting
       beforeStart: $.noop,         // returning FALSE will stop the execution chain.
       beforeMoving: $.noop,
       beforeReorganize: $.noop,
