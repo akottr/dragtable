@@ -70,7 +70,7 @@
       cursorAt: false,             // @see http://api.jqueryui.com/sortable/#option-cursorAt
       distance: 0,                 // @see http://api.jqueryui.com/sortable/#option-distance, for immediate feedback use "0"
       tolerance: 'pointer',        // @see http://api.jqueryui.com/sortable/#option-tolerance
-      axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting
+        axis: 'x',                   // @see http://api.jqueryui.com/sortable/#option-axis, Only vertical moving is allowed. Use 'x' or null. Use this in conjunction with the 'containment' setting
       beforeStart: $.noop,         // returning FALSE will stop the execution chain.
       beforeMoving: $.noop,
       beforeReorganize: $.noop,
@@ -235,7 +235,8 @@
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
       thtb.find('> tr > th').each(function(i, v) {
-        sortableHtml += '<li>';
+        var width_li = $(this).outerWidth();
+        sortableHtml += '<li style="width:' + width_li + 'px;">';
         sortableHtml += '<table ' + attrsString + '>';
         var row = thtb.find('> tr > th:nth-child(' + (i + 1) + ')');
         if (_this.options.maxMovingRows > 1) {
