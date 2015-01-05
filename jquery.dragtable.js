@@ -115,7 +115,7 @@
     },
     // bubble the moved col left or right
     _bubbleCols: function() {
-      var i, j, col1, col2;
+      var i, j, col1, col2, visibleRows;
       var from = this.originalTable.startIndex;
       var to = this.originalTable.endIndex;
       /* Find children thead and tbody.
@@ -125,22 +125,23 @@
       if (this.options.excludeFooter) {
         thtb = thtb.not('tfoot');
       }
+      visibleRows = thtb.find('> tr:visible');
       if (from < to) {
         for (i = from; i < to; i++) {
-          col1 = thtb.find('> tr > td:nth-child(' + i + ')')
-            .add(thtb.find('> tr > th:nth-child(' + i + ')'));
-          col2 = thtb.find('> tr > td:nth-child(' + (i + 1) + ')')
-            .add(thtb.find('> tr > th:nth-child(' + (i + 1) + ')'));
+          col1 = visibleRows.find('> td:nth-child(' + i + ')')
+            .add(visibleRows.find('> th:nth-child(' + i + ')'));
+          col2 = visibleRows.find('> td:nth-child(' + (i + 1) + ')')
+            .add(visibleRows.find('> th:nth-child(' + (i + 1) + ')'));
           for (j = 0; j < col1.length; j++) {
             swapNodes(col1[j], col2[j]);
           }
         }
       } else {
         for (i = from; i > to; i--) {
-          col1 = thtb.find('> tr > td:nth-child(' + i + ')')
-            .add(thtb.find('> tr > th:nth-child(' + i + ')'));
-          col2 = thtb.find('> tr > td:nth-child(' + (i - 1) + ')')
-            .add(thtb.find('> tr > th:nth-child(' + (i - 1) + ')'));
+          col1 = visibleRows.find('> td:nth-child(' + i + ')')
+            .add(visibleRows.find('> th:nth-child(' + i + ')'));
+          col2 = visibleRows.find('> td:nth-child(' + (i - 1) + ')')
+            .add(visibleRows.find('> th:nth-child(' + (i - 1) + ')'));
           for (j = 0; j < col1.length; j++) {
             swapNodes(col1[j], col2[j]);
           }
@@ -196,7 +197,7 @@
       var rowAttrsArr = [];
       //compute height, special handling for ie needed :-(
       var heightArr = [];
-      this.originalTable.el.find('tr').slice(0, this.options.maxMovingRows).each(function(i, v) {
+      this.originalTable.el.find('tr:visible').slice(0, this.options.maxMovingRows).each(function(i, v) {
         // row attributes
         var attrs = this.attributes;
         var attrsString = "";
@@ -220,7 +221,8 @@
       if (this.options.excludeFooter) {
         thtb = thtb.not('tfoot');
       }
-      thtb.find('> tr > th').each(function(i, v) {
+      var visibleRows = thtb.find('> tr:visible');
+      visibleRows.find('> th').each(function(i, v) {
         var w = $(this).outerWidth();
         widthArr.push(w);
         totalWidth += w;
@@ -234,13 +236,13 @@
 
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
-      thtb.find('> tr > th').each(function(i, v) {
+      visibleRows.find('> th').each(function(i, v) {
         var width_li = $(this).outerWidth();
         sortableHtml += '<li style="width:' + width_li + 'px;">';
         sortableHtml += '<table ' + attrsString + '>';
-        var row = thtb.find('> tr > th:nth-child(' + (i + 1) + ')');
+        var row = visibleRows.find('> th:nth-child(' + (i + 1) + ')');
         if (_this.options.maxMovingRows > 1) {
-          row = row.add(thtb.find('> tr > td:nth-child(' + (i + 1) + ')').slice(0, _this.options.maxMovingRows - 1));
+          row = row.add(visibleRows.find('> td:nth-child(' + (i + 1) + ')').slice(0, _this.options.maxMovingRows - 1));
         }
         row.each(function(j) {
           // TODO: May cause duplicate style-Attribute
