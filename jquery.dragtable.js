@@ -234,12 +234,18 @@
       // one extra px on right and left side
       totalWidth += 2
 
+      var captionHeight = 0;
+      _this.originalTable.el.find('caption').each(function(){
+        captionHeight += $(this).outerHeight();
+      });
+
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
       visibleRows.find('> th').each(function(i, v) {
         var width_li = $(this).outerWidth();
         sortableHtml += '<li style="width:' + width_li + 'px;">';
         sortableHtml += '<table ' + attrsString + '>';
+        sortableHtml += captionHeight ? '<caption style="height:' + captionHeight + 'px"></caption>' : '';
         var row = visibleRows.find('> th:nth-child(' + (i + 1) + ')');
         if (_this.options.maxMovingRows > 1) {
           row = row.add(visibleRows.find('> td:nth-child(' + (i + 1) + ')').slice(0, _this.options.maxMovingRows - 1));
