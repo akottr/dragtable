@@ -125,23 +125,23 @@
       if (this.options.excludeFooter) {
         thtb = thtb.not('tfoot');
       }
-      visibleRows = thtb.find('> tr:visible');
+      row = thtb.find('> tr');
       if (from < to) {
         for (i = from; i < to; i++) {
-          col1 = visibleRows.find('> td:nth-child(' + i + ')')
-            .add(visibleRows.find('> th:nth-child(' + i + ')'));
-          col2 = visibleRows.find('> td:nth-child(' + (i + 1) + ')')
-            .add(visibleRows.find('> th:nth-child(' + (i + 1) + ')'));
+          col1 = row.find('> td:nth-child(' + i + ')')
+            .add(row.find('> th:nth-child(' + i + ')'));
+          col2 = row.find('> td:nth-child(' + (i + 1) + ')')
+            .add(row.find('> th:nth-child(' + (i + 1) + ')'));
           for (j = 0; j < col1.length; j++) {
             swapNodes(col1[j], col2[j]);
           }
         }
       } else {
         for (i = from; i > to; i--) {
-          col1 = visibleRows.find('> td:nth-child(' + i + ')')
-            .add(visibleRows.find('> th:nth-child(' + i + ')'));
-          col2 = visibleRows.find('> td:nth-child(' + (i - 1) + ')')
-            .add(visibleRows.find('> th:nth-child(' + (i - 1) + ')'));
+          col1 = row.find('> td:nth-child(' + i + ')')
+            .add(row.find('> th:nth-child(' + i + ')'));
+          col2 = row.find('> td:nth-child(' + (i - 1) + ')')
+            .add(row.find('> th:nth-child(' + (i - 1) + ')'));
           for (j = 0; j < col1.length; j++) {
             swapNodes(col1[j], col2[j]);
           }
