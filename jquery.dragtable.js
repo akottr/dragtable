@@ -74,7 +74,8 @@
       beforeStart: $.noop,         // returning FALSE will stop the execution chain.
       beforeMoving: $.noop,
       beforeReorganize: $.noop,
-      beforeStop: $.noop
+      beforeStop: $.noop,
+      zIndex: 10
     },
     originalTable: {
       el: null,
@@ -239,7 +240,7 @@
         captionHeight += $(this).outerHeight();
       });
 
-      var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
+      var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px; z-index:' + _this.options.zIndex + '">';
       // assemble the needed html
       visibleRows.find('> th').each(function(i, v) {
         var width_li = $(this).outerWidth();
