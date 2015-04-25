@@ -6,7 +6,8 @@
     "Andres <akottr@gmail.com>"
   ],
   "dependencies": {
-    "jquery": "*"
+    "jquery": "*",
+    "jquery-ui": "1.11.*"
   },
   "description": "A draggable column table plugin for jquery.",
   "main": "jquery.dragtable.js",
