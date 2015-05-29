@@ -317,13 +317,13 @@
       };
       // bind draggable to 'th' by default
       this.bindTo = this.originalTable.el.find('th');
-      // filter only the cols that are accepted
-      if (this.options.dragaccept) {
-        this.bindTo = this.bindTo.filter(this.options.dragaccept);
-      }
       // bind draggable to handle if exists
       if (this.bindTo.find(this.options.dragHandle).size() > 0) {
         this.bindTo = this.bindTo.find(this.options.dragHandle);
+      }
+      // filter only the cols that are accepted
+      if (this.options.dragaccept) {
+        this.bindTo = this.bindTo.filter(this.options.dragaccept);
       }
       // restore state if necessary
       if (this.options.restoreState !== null) {
