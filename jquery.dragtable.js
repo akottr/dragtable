@@ -221,7 +221,7 @@
         thtb = thtb.not('tfoot');
       }
       thtb.find('> tr > th').each(function(i, v) {
-        var w = $(this).outerWidth();
+        var w = $(this).is(':visible') ? $(this).outerWidth() : 0;
         widthArr.push(w);
         totalWidth += w;
       });
@@ -235,7 +235,7 @@
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
       // assemble the needed html
       thtb.find('> tr > th').each(function(i, v) {
-        var width_li = $(this).outerWidth();
+        var width_li = $(this).is(':visible') ? $(this).outerWidth() : 0;
         sortableHtml += '<li style="width:' + width_li + 'px;">';
         sortableHtml += '<table ' + attrsString + '>';
         var row = thtb.find('> tr > th:nth-child(' + (i + 1) + ')');
