@@ -108,6 +108,7 @@
      */
     _restoreState: function(persistObj) {
       for (var n in persistObj) {
+        if ($('#' + n).length == 0) continue;
         this.originalTable.startIndex = $('#' + n).closest('th').prevAll().size() + 1;
         this.originalTable.endIndex = parseInt(persistObj[n], 10) + 1;
         this._bubbleCols();
@@ -131,8 +132,10 @@
             .add(thtb.find('> tr > th:nth-child(' + i + ')'));
           col2 = thtb.find('> tr > td:nth-child(' + (i + 1) + ')')
             .add(thtb.find('> tr > th:nth-child(' + (i + 1) + ')'));
-          for (j = 0; j < col1.length; j++) {
-            swapNodes(col1[j], col2[j]);
+          if ((col1.length > 0) && (col2.length > 0)) {
+            for (j = 0; j < col1.length; j++) {
+              swapNodes(col1[j], col2[j]);
+            }
           }
         }
       } else {
@@ -141,8 +144,10 @@
             .add(thtb.find('> tr > th:nth-child(' + i + ')'));
           col2 = thtb.find('> tr > td:nth-child(' + (i - 1) + ')')
             .add(thtb.find('> tr > th:nth-child(' + (i - 1) + ')'));
-          for (j = 0; j < col1.length; j++) {
-            swapNodes(col1[j], col2[j]);
+          if ((col1.length > 0) && (col2.length > 0)) {
+            for (j = 0; j < col1.length; j++) {
+              swapNodes(col1[j], col2[j]);
+            }
           }
         }
       }
