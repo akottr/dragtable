@@ -108,7 +108,7 @@
      */
     _restoreState: function(persistObj) {
       for (var n in persistObj) {
-        this.originalTable.startIndex = $('#' + n).closest('th').prevAll().size() + 1;
+        this.originalTable.startIndex = $('#' + n).closest('th').prevAll().length + 1;
         this.originalTable.endIndex = parseInt(persistObj[n], 10) + 1;
         this._bubbleCols();
       }
@@ -171,7 +171,7 @@
         _this.options.beforeReorganize(_this.originalTable, _this.sortableTable);
         // do reorganisation asynchronous
         // for chrome a little bit more than 1 ms because we want to force a rerender
-        _this.originalTable.endIndex = _this.sortableTable.movingRow.prevAll().size() + 1;
+        _this.originalTable.endIndex = _this.sortableTable.movingRow.prevAll().length + 1;
         setTimeout(_this._rearrangeTableBackroundProcessing(), 50);
       };
     },
@@ -279,7 +279,7 @@
       });
 
       // assign start index
-      this.originalTable.startIndex = $(e.target).closest('th').prevAll().size() + 1;
+      this.originalTable.startIndex = $(e.target).closest('th').prevAll().length + 1;
 
       this.options.beforeMoving(this.originalTable, this.sortableTable);
       // Start moving by delegating the original event to the new sortable table
@@ -322,7 +322,7 @@
         this.bindTo = this.bindTo.filter(this.options.dragaccept);
       }
       // bind draggable to handle if exists
-      if (this.bindTo.find(this.options.dragHandle).size() > 0) {
+      if (this.bindTo.find(this.options.dragHandle).length > 0) {
         this.bindTo = this.bindTo.find(this.options.dragHandle);
       }
       // restore state if necessary
