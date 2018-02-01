@@ -1,5 +1,5 @@
 {
-    "name": "akottr/dragtable"
+    "name": "akottr/dragtable",
     "description": "Drag and drop for table columns",
     "keywords": ["table","drag and drop", "table columns"],
     "type": "component",
