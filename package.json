@@ -22,7 +22,7 @@
     "draggable"
   ],
   "dependencies": {
-    "jquery": "*",
-    "jquery-ui": "1.11.*"
+    "jquery": "~2.1.1",
+    "jquery-ui": "~1.11.4"
   }
 }
