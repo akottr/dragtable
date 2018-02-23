@@ -18,10 +18,6 @@
     border-left: 0px;
 }
 
-.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {
-    border-left: 1px solid #CCC; 
-}
-
 .ui-sortable-helper {
     opacity: 0.7;filter: alpha(opacity=70);
 }

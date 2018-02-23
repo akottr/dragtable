@@ -238,7 +238,7 @@
         var width_li = $(this).is(':visible') ? $(this).outerWidth() : 0;
         sortableHtml += '<li style="width:' + width_li + 'px;">';
         sortableHtml += '<table ' + attrsString + '>';
-        var row = thtb.find('> tr > th:nth-child(' + (i + 1) + ')');
+        var row = thtb.find('> tr > th:nth-child(' + (i + 1) + '):visible');
         if (_this.options.maxMovingRows > 1) {
           row = row.add(thtb.find('> tr > td:nth-child(' + (i + 1) + ')').slice(0, _this.options.maxMovingRows - 1));
         }
@@ -333,7 +333,7 @@
       this.bindTo.mousedown(function(evt) {
         // listen only to left mouse click
         if(evt.which!==1) return;
-        if (_this.options.beforeStart(_this.originalTable) === false) {
+        if (_this.options.beforeStart(_this.originalTable, evt) === false) {
           return;
         }
         clearTimeout(this.downTimer);
