@@ -333,7 +333,7 @@
       this.bindTo.mousedown(function(evt) {
         // listen only to left mouse click
         if(evt.which!==1) return;
-        if (_this.options.beforeStart(_this.originalTable) === false) {
+        if (_this.options.beforeStart(_this.originalTable, evt) === false) {
           return;
         }
         clearTimeout(this.downTimer);
